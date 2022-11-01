@@ -46,16 +46,23 @@ def upload_file(request):
             df = [x for _, x in df.groupby(df['Category'])]
             print("len(df) : ",len(df))
             df = pd.DataFrame(df)
+            print(df.head(2))
+            # df = df.T
             # print(df.head(2))
             # df_temp = pd.DataFrame(columns = column_ls)
+            # global df1
             # for r in df.iterrows():
-            #     # for i in unique_val[:-1]:
-            #     print(r[0] , r[1])
-            #     if r[1] is unique_val[0]:
-            #         df_temp = pd.DataFrame(r,columns = column_ls)
-            #         df_temp.loc[len(df_temp.index)] = df_temp[new_col].sum()
-            # print(df_temp.head())
-                # temp_df.to_excel("temp_df.xlsx", index=True)
+            #     for i in unique_val[:-1]:
+            #         df1 = pd.DataFrame(columns = column_ls)
+            # #     print(r[0] , r[1])
+            #         print(r[0])
+            #         if r[1].any() == unique_val[0]:
+            #             df_temp = pd.DataFrame(r,columns = column_ls)
+            #             df_temp.loc[len(df_temp.index)] = df_temp[column_ls].sum()
+            #             global new_df
+            #             new_df = pd.concat([df1, df_temp], axis=0)
+            #             print("\n new df\n" ,new_df.head())
+            #     # temp_df.to_excel("temp_df.xlsx", index=True)
 
             # save result to excel
             df.to_excel(f"{BASE_DIR}\media\output\{myfile}_result.xlsx", index=True)
@@ -65,14 +72,8 @@ def upload_file(request):
             print(error)
         else: 
             pass
-            # r_set=my_conn.execute('DELETE from Input');
-            # print("deleted")
-            # for row in r_set:
-            #     print(row)
-
-
 
         return render(request, 'upload.html', {
             'uploaded_file_url': uploaded_file_url
         })
-    return render(request, 'upload.html')
+    return render(request, 'upload.html',{'uploaded_file_url': None})
